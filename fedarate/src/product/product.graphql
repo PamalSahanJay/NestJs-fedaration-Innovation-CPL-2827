@@ -1,0 +1,957 @@
+directive @resolveLocally on FIELD_DEFINITION
+
+"Auto-generated stub interface"
+interface PlatformIdentifier {
+  "The native unique identifier for the object"
+  id: ID!
+  "Entity type"
+  modelType: String!
+}
+
+"Represents Product. Read only data synced up with the Product Master"
+interface Product {
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"modelType: ArticleProduct. out of R0. Represents ArticleProduct. Read only data synced up with the Product Master"
+type ArticleProduct implements PlatformIdentifier & Product @key(fields : "id") {
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  "The date on which a Product was first published online, usually taken as the official date of publication"
+  firstOnlineDate: String
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  journalId: String! @deprecated(reason: "Non WIM")
+  isPartOfPeriodical: PlatformIdentifier @resolveLocally
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  "A mnemonic code used at Wiley to identify a product, usually assigned by Editorial. (aka AID)"
+  productCode: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"modelType: Book. A prose-driven exploration of a set of related topics, intended to stand independently."
+type Book implements PlatformIdentifier & Product @key(fields : "id") {
+  "GBPM code for any NASTA label attatched"
+  NASTALabel: String
+  "The intended audience for the book."
+  audience: String
+  "the finish of the backing, loose or tight."
+  backingFinish: String
+  "the GBPM code of any backing used in the book."
+  backingTypeCode: String
+  "the GBPM code of the binding type for the book"
+  bindingStyleCode: String
+  "all the Carton Quantities for the different locations for this book."
+  cartonQuantity: [CartonSpecification]
+  "from schema:copyrightYear The year during which the claimed copyright for the CreativeWork was first asserted."
+  copyrightYear: Int
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  "the amount of foil hits used in the book."
+  foilQuantity: Int
+  "the GBPM code for the type of glue used to bind the book."
+  glueTypeCode: String
+  "the book has bleeds printed in it."
+  hasBleeds: Boolean
+  hasCollateralMap: _CollateralMap
+  hasCover: _CoverCollateralMap
+  "the book has perforated pages."
+  hasPerforation: Boolean
+  "are any of the colors used premium."
+  hasPremiumColor: Boolean
+  "the book has rounded corners."
+  hasRoundedCorners: Boolean
+  "the description of the headband color."
+  headbandColor: String
+  "the GBPM Code for the color of any headband on the book."
+  headbandColorCode: String
+  "the material the headband is made out of. e.g  Cotton."
+  headbandMaterial: String
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  inStoreDate: String
+  "is this product able to have a digital print."
+  isDigitalPrintCapable: Boolean
+  "book is NASTA compliant."
+  isNASTACompliant: Boolean
+  "the book is sold shrink wrapped."
+  isShrinkWrapped: Boolean
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String!
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "out of the numberOfPages how many are in color."
+  numberOfColorPages: Int
+  "number of holes that go through the book."
+  numberOfDrillHoles: Int
+  "Page count"
+  numberOfPages: Int
+  "The P-Number from GBPM"
+  pNumber: String
+  "the weight of the paper used in the book. NOTE- may have a printer override."
+  paperBasisWeight: Int
+  "description of the paper stock used in the book."
+  paperDescription: String
+  "the pixels per inch that are used when printing on paper."
+  paperPPI: Int
+  "the code of the paperStock that this shouuld by default be printed on. NOTE- may have a printer configuration override."
+  paperStockCode: String
+  "the number of physical media that comes with the product"
+  physicalMediaQuantity: Int
+  "the recommended retail prices for the book."
+  price: [PriceSpecification]
+  printVendor: [String]
+  productionOffice: Group
+  projectedPublicationDate: String
+  publicationDate: String
+  "Book publication type"
+  publicationType: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  "the material that the spiral is made out of, e.g Plastic or metal."
+  spiralMaterial: String
+  state: String
+  "GBPM code for specific type of Book, in the future this will be a more specific PublicationType."
+  subTypeCode: String
+  "the BISAC Subject Code of this book, currenlty only one we may in the future support more than One"
+  subjectCodeBISAC: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "the PMS colours used in the book"
+  textColor: String
+  "Text Color Code"
+  textColorCode: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+type CartonSpecification {
+  "the location for which this Carton Quantity relates to."
+  location: String
+  "the number of books in a Carton for this location."
+  quantity: Int
+}
+
+"A project specifically for the Education division of Wiley."
+type EducationProject implements PlatformIdentifier & Product @key(fields : "id") {
+  "The main author name associated to the project."
+  author: String
+  "Connects an entity to the disciplines it discusses, in the form of the Wiley Discipline Vocabulary."
+  concernsDiscipline: [SimpleConcept]
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "The main editor associated to the project."
+  editor: String
+  "Entity JSON"
+  entityJson: String
+  "The name of the franchise that the Project is part of."
+  franchise: String
+  hasProduct: [Product]
+  hasSubProducts: [Product]
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  isPartOfBookSeries: PlatformIdentifier
+  isPartOfProductLine: PlatformIdentifier
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  "The season that is applicable to the Project."
+  season: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"A Group as stored in the Group API, the modelType can be Organization, Group, LegalAgent"
+type Group implements PlatformIdentifier {
+  id: ID!
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+}
+
+type HtmlName {
+  htmLang: String
+  htmValue: String!
+}
+
+"Issue product."
+type Issue implements PlatformIdentifier & Product @key(fields : "id") {
+  coverDate: String!
+  coverDisplayDate: [_LocalizedText]
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  dateAccepted: String
+  description: [HtmlName]
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  hasTableOfContents: PlatformIdentifier
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  isPartOfPeriodical: PlatformIdentifier @resolveLocally
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  issueNumber: String!
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  publicationDate: String
+  publicationType: String!
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String!
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"Cached Journal product from JANIS and WOL."
+type Journal implements PlatformIdentifier & Product @key(fields : "id") {
+  "Link to journal specific author guidelines"
+  authorGuidelinesUrl: String
+  "Connects an entity to the disciplines it discusses, in the form of the Wiley Discipline Vocabulary."
+  concernsDiscipline: [SimpleConcept]
+  "a link on a journal cover image"
+  coverUrl: String
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  distributionModel: String
+  "Digital Object Identifier"
+  doi: String
+  "electornic issn"
+  eIssn: String
+  "Names part of \"editorial info string\""
+  editedByNames: String
+  "prefix for \"editorial info string\""
+  editedByPrefix: String
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  "journal home page"
+  homepage: String
+  id: ID!
+  "Journal Impact factor; externally calculated"
+  impactFactor: Float
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  "list of journal ISI rankings. Could be for multiple years. Could have multiple records for differnt categories"
+  isiRanking: [_IsiRanking]
+  "issn"
+  issn: String
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  producedOnBehalfOf: [SimpleGroup]
+  "Short journal title used by internal Wiley systems (aka Acronym)"
+  productCode: String
+  "Journal publication channel"
+  publicationChannel: [String]
+  "Flag that indicates the \"Rolling Renewal\" subscription type (JANIS value \"RR\")"
+  rollingRenewal: Boolean
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "Journal submission link. May be replaced with Author guidelines link if the journal handles submission by email"
+  submissionUrl: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Flag that defines whether ISI ranking needs to be used instead of Impact Factor on Journal pages"
+  suppressImpactFactor: Boolean
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"modelType: LearningObjectProduct. Represents language agnistic Learning Object Product details."
+type LearningObjectProduct implements PlatformIdentifier & Product @key(fields : "id") {
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  "Id of the discipline, to which the Learning Object assigned"
+  hasDiscipline: String
+  "List of tags Ids assigned to Learning Object"
+  hasKeyword: [String]
+  "Id of the program, to which the Learning Object assigned"
+  hasProgram: String
+  hasSubProducts: [Product]
+  "List of themes Ids assigned to Learning Object"
+  hasSubject: [String]
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  "Learning Object code"
+  productCode: String
+  "Learning Object publication type"
+  publicationType: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"Represents different localized Learning Object abstracts details."
+type LocalizedLOAbstract {
+  type: String
+  "Abstract value"
+  value: String
+}
+
+"used to split out the arrays that must not be patched due to JSON-Merge issues with patching arrays."
+type LocalizedLearningObjectProduct implements PlatformIdentifier & Product @key(fields : "id") {
+  "The intended audience for the object."
+  audience: String
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Level of difficulty"
+  difficultyLevel: Int
+  "Digital Object Identifier"
+  doi: String
+  "This is the length of the content (for videos). Or expected time to complete/read (for Sessions, Action Tips, Essentials)"
+  duration: Int
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  "File name"
+  fileName: String
+  "Map of Localized Learning Object abstracts"
+  hasAbstract: [LocalizedLOAbstract]
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  "Flag to reflect if content has audio"
+  includesAudio: Boolean
+  "Flag to reflect if content has video"
+  includesVideo: Boolean
+  "The level of interactivity of the content."
+  interactivityLevel: Int
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  "Array of dates representing when the object has been published."
+  publicationDate: [String]
+  "Localized Learning Object publication type"
+  publicationType: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"Auto-generated stub type"
+type Participant implements PlatformIdentifier @extends @key(fields : "id") {
+  "The native unique identifier for the object"
+  id: ID! @external
+  "Entity type"
+  modelType: String! @external
+}
+
+"from schema:PriceSpecification allowing saving a price made up of currency and values"
+type PriceSpecification {
+  "from schema:Price number representing the price in the related PriceCurrency"
+  price: Float
+  "from schema:PriceCurrency, is the ISO 4217 currency format"
+  priceCurrency: String
+}
+
+"modelType: ProductCollateral. Content that is created specifically for the Product and not part of the underlying Work."
+type ProductCollateral implements PlatformIdentifier {
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  id: ID!
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "from schema:Position, Free text field indicating Product Collateral placement"
+  position: String
+  "the WIM publicaiton type for the collateral."
+  publicationType: String
+  state: String
+  "the description of the stock."
+  stock: String
+  "GBPM code for what the Product Collateral is made of."
+  stockCode: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+}
+
+"This is a root source of a collection of saleable products."
+type Project implements PlatformIdentifier & Product @key(fields : "id") {
+  "The main author name associated to the project."
+  author: String
+  "Connects an entity to the disciplines it discusses, in the form of the Wiley Discipline Vocabulary."
+  concernsDiscipline: [SimpleConcept]
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "The main editor associated to the project."
+  editor: String
+  "Entity JSON"
+  entityJson: String
+  "The name of the franchise that the Project is part of."
+  franchise: String
+  hasProduct: [Product]
+  hasSubProducts: [Product]
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  isPartOfBookSeries: PlatformIdentifier
+  isPartOfProductLine: PlatformIdentifier
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "The P-Number from GBPM"
+  pNumber: String
+  "The season that is applicable to the Project."
+  season: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  state: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"This is a publishable product (MRW) that groups together Reference Articles. It may be an eMRW or print MRW depending on the assigned Publication Type."
+type ReferenceProduct implements PlatformIdentifier & Product @key(fields : "id") {
+  "GBPM code for any NASTA label attatched"
+  NASTALabel: String
+  "The intended audience for the book."
+  audience: String
+  "the finish of the backing, loose or tight."
+  backingFinish: String
+  "the GBPM code of any backing used in the book."
+  backingTypeCode: String
+  "the GBPM code of the binding type for the book"
+  bindingStyleCode: String
+  "all the Carton Quantities for the different locations for this book."
+  cartonQuantity: [CartonSpecification]
+  "from schema:copyrightYear The year during which the claimed copyright for the CreativeWork was first asserted."
+  copyrightYear: Int
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "product dh id"
+  dhId: String
+  "Digital Object Identifier"
+  doi: String
+  "the edition number for the product"
+  edition: Int
+  "Entity JSON"
+  entityJson: String
+  "the amount of foil hits used in the book."
+  foilQuantity: Int
+  "the GBPM code for the type of glue used to bind the book."
+  glueTypeCode: String
+  "the book has bleeds printed in it."
+  hasBleeds: Boolean
+  hasCollateralMap: _CollateralMap
+  hasCover: _CoverCollateralMap
+  "the book has perforated pages."
+  hasPerforation: Boolean
+  "are any of the colors used premium."
+  hasPremiumColor: Boolean
+  "the book has rounded corners."
+  hasRoundedCorners: Boolean
+  "the description of the headband color."
+  headbandColor: String
+  "the GBPM Code for the color of any headband on the book."
+  headbandColorCode: String
+  "the material the headband is made out of. e.g  Cotton."
+  headbandMaterial: String
+  id: ID!
+  "Language tag of localized Learning Object in bcp47 (https://tools.ietf.org/html/bcp47) format"
+  inLanguage: String
+  inStoreDate: String
+  "is this product able to have a digital print."
+  isDigitalPrintCapable: Boolean
+  "book is NASTA compliant."
+  isNASTACompliant: Boolean
+  "the book is sold shrink wrapped."
+  isShrinkWrapped: Boolean
+  "The ISBN for the publication in which the resource was published. Could be isbn10 or isbn13. Should be unique"
+  isbn: String!
+  "The Wiley owned Imprint used for this product"
+  marketedUnder: String
+  "The Medium code from GBPM"
+  mediumCode: String
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "Title (mandatory for Book model type)"
+  name: String
+  "out of the numberOfPages how many are in color."
+  numberOfColorPages: Int
+  "number of holes that go through the book."
+  numberOfDrillHoles: Int
+  "Page count"
+  numberOfPages: Int
+  "The P-Number from GBPM"
+  pNumber: String
+  "the weight of the paper used in the book. NOTE- may have a printer override."
+  paperBasisWeight: Int
+  "description of the paper stock used in the book."
+  paperDescription: String
+  "the pixels per inch that are used when printing on paper."
+  paperPPI: Int
+  "the code of the paperStock that this shouuld by default be printed on. NOTE- may have a printer configuration override."
+  paperStockCode: String
+  "the number of physical media that comes with the product"
+  physicalMediaQuantity: Int
+  "the recommended retail prices for the book."
+  price: [PriceSpecification]
+  printVendor: [String]
+  productionOffice: Group
+  projectedPublicationDate: String
+  publicationDate: String
+  "ReferenceProduct publication type"
+  publicationType: String
+  "an alternative name in an abbreviated form"
+  shortTitle: String
+  "the Stock Keeping Unit ID for this product."
+  sku: String
+  "the material that the spiral is made out of, e.g Plastic or metal."
+  spiralMaterial: String
+  state: String
+  "GBPM code for specific type of Book, in the future this will be a more specific PublicationType."
+  subTypeCode: String
+  "the BISAC Subject Code of this book, currenlty only one we may in the future support more than One"
+  subjectCodeBISAC: String
+  "from prism:subtitle"
+  subtitle: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+  "the PMS colours used in the book"
+  textColor: String
+  "Text Color Code"
+  textColorCode: String
+  "Trim Size Code"
+  trimSizeCode: String
+  "Trim Size Length"
+  trimSizeHeight: Float
+  "Trim Size Width"
+  trimSizeWidth: Float
+}
+
+"Controlled vocabulary concept implemented in SKOS"
+type SimpleConcept {
+  "The globally unique [entityId](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#entityid) for the instance. This MUST NOT be qualified if the instance is a Wiley-mastered entity with a Wiley Information Model compliant entityId (implied prefix is wdat). It MUST be qualified for Wiley-defined controlled vocabularies using the prefix defined in the standard Wiley Information Model JSON-LD context. It MUST be a fully resolvable URL for entities mastered outside of Wiley (where these entities do not have reliable, resolvable, URLs, a corresponding Wiley controlled vocabulary MUST be defined and used in its place)."
+  id: ID!
+  "The common value for the controlled vocabulary. For example, where WileyML is supported the value in the corresponding Wiley controlled vocabulary should be used here."
+  mnemonic: String
+  "The unqualified form of the [entityType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#entitytype). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String
+}
+
+"Society information. Could have a refernce to the Group"
+type SimpleGroup {
+  "group id"
+  id: ID
+  "\"SchemaOrganization\" for \"unlinked\" entities and \"Group\" for references"
+  modelType: String!
+  "organization name"
+  name: String!
+  "organization url"
+  url: String
+}
+
+"Auto-generated stub type"
+type System implements PlatformIdentifier @extends @key(fields : "id") {
+  "The native unique identifier for the object"
+  id: ID! @external
+  "Entity type"
+  modelType: String! @external
+}
+
+"If there is a printed variable this will describe it"
+type Variable {
+  "GBPM code if there is a variable then how it should be covered, VDSO= scratch off or VDCO= covered."
+  concealmentCode: String
+  "where is the variable located"
+  position: String
+  "what type of variable is this."
+  type: String
+}
+
+"Groups together a product to ProductCollateral."
+type _CollateralMap {
+  "related ProductCollateral"
+  hasProductCollateral: [ProductCollateral]
+}
+
+"modelType: one of the 4 cover types."
+type _Cover implements PlatformIdentifier {
+  "Cover color count"
+  colorCount: Int
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "the size of any embelishment"
+  embelishmentSize: Int
+  "if the cover has an embelishment is it embossed or blind embelishmentType."
+  embelishmentType: String
+  "the color of the foil to be used on the cover."
+  foilColor: String
+  id: ID!
+  "The unqualified form of the [productType](https://github.com/melville-wiley/melville/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "from schema:Position, Free text field indicating Product Collateral placement"
+  position: String
+  "GBPM code for any prooftags in cover"
+  prooftagCode: String
+  "Cover type"
+  publicationType: String
+  state: String
+  "the description of the stock."
+  stock: String
+  "GBPM code for what the Product Collateral is made of."
+  stockCode: String
+  "In the case of a superseded object, this points to the survivor"
+  supersedingId: String
+}
+
+"Groups together the four Cover ProductCollateral. There should only be one instance of each Cover publication type here."
+type _CoverCollateralMap {
+  "the thickness of any board used"
+  boardCaliper: String
+  "description of any board used"
+  boardDescription: String
+  "the PMS colours used"
+  color: String
+  "GBPM code for the finish."
+  finishCode: String
+  "the related Covers."
+  hasProductCollateral: [_Cover]
+  "is there a sticker affixed to the Cover."
+  hasSticker: Boolean
+  "GBPM Code for the Lamination Type."
+  laminationTypeCode: String
+  "description of the cover layout."
+  layout: String
+  "what material are the covers made out of."
+  material: String
+  "what color the covers are."
+  materialColor: String
+  "the GBPM BLIND stamping Code. S would mean foil stamping"
+  stampingCode: String
+  "GBPM code describing the cover."
+  typeCode: String
+  variable: Variable
+}
+
+type _IsiRanking {
+  "journal rank in subjetc category"
+  rank: Float!
+  "isi subject category"
+  subject: String!
+  "total numebr of journals in category"
+  total: Float!
+  "ranking year"
+  year: Float!
+}
+
+type _LocalizedText {
+  language: String
+  value: String!
+}

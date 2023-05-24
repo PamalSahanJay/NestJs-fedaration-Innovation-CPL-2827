@@ -1,0 +1,139 @@
+type ArticleProduct implements PlatformIdentifier @key(fields : "id") @extends {
+    id: ID! @external
+    modelType: String! @external
+    relatedJobs: [Job!]
+}
+
+type ArticleProduction implements PlatformIdentifier @key(fields : "id") @extends {
+    id: ID! @external
+    modelType: String! @external
+    relatedJobs: [Job!]
+}
+
+"Auto-generated stub interface"
+interface PlatformIdentifier {
+  "The native unique identifier for the object"
+  id: ID!
+  "Entity type"
+  modelType: String!
+}
+
+"A job entity object."
+type Job implements PlatformIdentifier @key(fields : "id") {
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  "Entity JSON"
+  entityJson: String
+  hasJob: [PlatformIdentifier]
+  hasPayload: Payload
+  hasRelatedEntity: [PlatformIdentifier]
+  hasReport: [ReportLine]
+  id: ID!
+  jobType: SimpleConcept
+  "The unqualified form of the [productType](https://github.com/wiley/model-analysis/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  state: String!
+  status: String
+  "job type use 'jobType' instead"
+  type: String!
+}
+
+"A workflow event defines a milestone in a given workflow instance."
+type JobWorkflowEvent implements PlatformIdentifier @key(fields : "id") {
+  about: PlatformIdentifier
+  "When the object was added to the system. System-generated only."
+  created: String
+  createdBy: PlatformIdentifier
+  createdOnBehalfOf: PlatformIdentifier
+  data: String
+  dataContentType: String
+  dataSchema: String
+  endedAtTime: String!
+  "Entity JSON"
+  entityJson: String
+  "System event type associated with the event"
+  eventType: String!
+  id: ID!
+  initiatedBy: PlatformIdentifier
+  isEventOf: _IsEventOf
+  modelEventType: SimpleConcept!
+  modelType: String!
+  "When the object was last modified in the system. System-generated only."
+  modified: String
+  modifiedBy: PlatformIdentifier
+  modifiedOnBehalfOf: PlatformIdentifier
+  "unknown non-WIM property added into Event definition"
+  payload: [PlatformIdentifier]
+  "An array of resulted entities."
+  resultedIn: [PlatformIdentifier]
+  state: String
+  status: String
+  "Transaction id associated with the event"
+  transactionId: String!
+  "{Major}.{Minor}.{Patch}: Major, minor, patch version are defined by the current version of the Wiley Information Model. Minor versions of the Model are guaranteed incrementally compatible (properties and classes may be deprecated but not removed. Major versions of the Model SHOULD be mostly incrementally compatible, but breaking changes may be introduced which might lead to information loss when objects in an earlier version of the model are handled by a processor that only understands a later version."
+  version: String
+}
+
+"Auto-generated stub type"
+type Participant implements PlatformIdentifier @extends @key(fields : "id") {
+  "The native unique identifier for the object"
+  id: ID! @external
+  "Entity type"
+  modelType: String! @external
+}
+
+"Key/Value free form object, see https://swagger.io/docs/specification/data-models/dictionaries"
+type Payload {
+  properties: [_KeyValue]
+}
+
+"Line in the report"
+type ReportLine {
+  created: String
+  event: PlatformIdentifier
+  message: String
+  "report's type"
+  type: String
+}
+
+"Generic concept type with 'id' and 'mnemonic'"
+type SimpleConcept {
+  id: ID!
+  mnemonic: String!
+  modelType: String
+}
+
+"Auto-generated stub type"
+type System implements PlatformIdentifier @extends @key(fields : "id") {
+  "The native unique identifier for the object"
+  id: ID! @external
+  "Entity type"
+  modelType: String! @external
+}
+
+type _IsEventOf implements PlatformIdentifier {
+  id: ID!
+  jobType: SimpleConcept
+  "The unqualified form of the [productType](https://github.com/wiley/model-analysis/blob/master/Patterns/Analysis/ModelIdentifiers.md#productType). This MUST be aliased in the standard Wiley Information Model JSON-LD context."
+  modelType: String!
+  state: String
+  status: String
+}
+
+"Auto-generated key-value type"
+type _KeyValue {
+  "Property's name"
+  key: String!
+  "Property's value"
+  value: _Value
+}
+
+"Auto-generated value type"
+scalar _Value
+
