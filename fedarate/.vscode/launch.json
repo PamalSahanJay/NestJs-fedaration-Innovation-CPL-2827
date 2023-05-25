@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug Nest.js",
+        "runtimeArgs": [
+          "--nolazy",
+          "-r",
+          "ts-node/register"
+        ],
+        "args": [
+          "${workspaceFolder}/src/main.ts"
+        ],
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}",
+        "protocol": "inspector",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "outputCapture": "std",
+        "restart": true,
+        "restartBreak": true
+      }
+    ]
+  }

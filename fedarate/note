@@ -1,2 +1,4 @@
 --data source 
-npm install apollo-datasource-rest
+npm install @nestjs/axios
+-- for propertise
+npm install config
